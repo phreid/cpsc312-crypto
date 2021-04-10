@@ -5,6 +5,7 @@ question(Q0, QEnd, C0, CEnd) :-
     query_phrase(Q1, QEnd, C0, CEnd).
 
 starter_phrase(['What', is | L], L).
+starter_phrase(['Which' | L], L).
 
 query_phrase(L0, LEnd, C0, CEnd) :-
     det(L0, L1, C0, C1),
@@ -16,6 +17,7 @@ det([the | L], L, C, C).
 det(L, L, C, C).
 
 req_type_phrase([Req, of | L], L, [req_type(Req) | C], C).
+req_type_phrase([Req, sell | L], L, [req_type(Req) | C], C).
 
 coin_name([Coin | L], L, [coin(Code) | C], C) :- 
     coin_code(Coin, Code).
@@ -35,7 +37,21 @@ currency_name([Currency | L], L, [currency(Code) | C], C) :-
     currency_code(Currency, Code).
 
 coin_code('Bitcoin', btc).
+coin_code('btc', btc).
+coin_code('BTC', btc).
+
 coin_code('Ethereum', eth).
+coin_code('ETH', eth).
+coin_code('eth', eth).
 
 currency_code('USD', usd).
+currency_code('usd', usd).
+
 currency_code('CAD', cad).
+currency_code('cad', cad).
+
+currency_code('EUR', eur).
+currency_code('eur', eur).
+
+currency_code('GBP', gbp).
+currency_code('gbp', gbp).

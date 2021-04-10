@@ -52,6 +52,7 @@ build_call_from_question(Question, Coin, usd, Constraints) :-
 % no market constraint. 
 get_answer_from_dict(Dict, Constraints, Result) :-
     \+ member(market(_), Constraints),
+    \+ member(req_type(markets), Constraints),
     member(req_type(Type), Constraints),
     get_dict(Type, Dict, Result).
 
@@ -64,6 +65,14 @@ get_answer_from_dict(Dict, Constraints, Result) :-
     filter_markets(Dicts, Market, D1),
     get_dict(Type, D1, Result).
 
+% This predicate matches if there is a req_type constraint of markets.
+get_answer_from_dict(Dict, Constraints, Result) :-
+    member(req_type(markets), Constraints),
+    get_dict(markets, Dict, Dicts),
+    dicts_slice([market], Dicts, Values),
+    member(A, Values),
+    atom_string(A.get(market), Result).
+
 % filter_markets([Dicts], Market, Dict) is true if Dict is a dictionary
 % in [Dicts] where Dict[market] is equal to Market. Market has to be a string.
 filter_markets([], _, _{}).
@@ -73,4 +82,3 @@ filter_markets([D|T], Market, D1) :-
     get_dict(market, D, M1),
     dif(Market, M1),
     filter_markets(T, Market, D1).
-
