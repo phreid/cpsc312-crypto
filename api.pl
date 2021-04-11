@@ -53,7 +53,7 @@ build_call_from_question(Question, Coin, usd, Constraints) :-
 get_answer_from_dict(Dict, Constraints, Result) :-
     \+ member(market(_), Constraints),
     \+ member(req_type(markets), Constraints),
-
+    \+ member(req_type(highest), Constraints),
     member(req_type(Type), Constraints),
     get_dict(Type, Dict, Result).
 
@@ -91,7 +91,6 @@ filter_markets([D|T], Market, D1) :-
     dif(Market, M1),
     filter_markets(T, Market, D1).
 
-compare_price_highest([],[], _, Market, Market).
 compare_price_highest([M], [P], Price, _, Ma) :- 
     atom_string(M.get(market), Ma),
     atom_number(P.get(price), Pr),
@@ -104,7 +103,7 @@ compare_price_highest([M|M1], [P|P1], Price, _, Market) :-
     atom_number(P.get(price), Pr),
     Pr > Price,
     compare_price_highest(M1, P1, Pr, Ma, Market).
-compare_price_highest([_|M1], [P|P1], Price, _, Market) :-
+compare_price_highest([_|M1], [P|P1], Price, M, Market) :-
     atom_number(P.get(price), Pr),
     Pr < Price,
-    compare_price_highest(M1, P1, Price, _, Market).
+    compare_price_highest(M1, P1, Price, M, Market).
