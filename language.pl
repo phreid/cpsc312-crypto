@@ -7,8 +7,11 @@ question(Q0, QEnd, C0, CEnd) :-
     query_phrase(Q1, QEnd, C0, CEnd).
 
 starter_phrase(['What', is | L], L).
+starter_phrase([what, is | L], L).
 starter_phrase(['Which' | L], L).
+starter_phrase([which | L], L).
 starter_phrase(['Which', market, has | L], L).
+starter_phrase([which, market, has | L], L).
 
 query_phrase(L0, LEnd, C0, CEnd) :-
     det(L0, L1, C0, C1),
@@ -53,6 +56,11 @@ coin_code('ltc', ltc).
 
 coin_code('peercoin', ppc).
 coin_code('ppc', ppc).
+
+coin_code('dogecoin', doge).
+coin_code('doge', doge).
+
+coin_code('xrp', xrp).
 
 currency_code('usd', usd).
 currency_code('cad', cad).
