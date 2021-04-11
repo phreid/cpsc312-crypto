@@ -1,11 +1,14 @@
 :- module(language, [question/4]).
 
+% Which market has the highest price for Bitcoin in USD?
+
 question(Q0, QEnd, C0, CEnd) :-
     starter_phrase(Q0, Q1),
     query_phrase(Q1, QEnd, C0, CEnd).
 
 starter_phrase(['What', is | L], L).
 starter_phrase(['Which' | L], L).
+starter_phrase(['Which', market, has | L], L).
 
 query_phrase(L0, LEnd, C0, CEnd) :-
     det(L0, L1, C0, C1),
@@ -18,6 +21,7 @@ det(L, L, C, C).
 
 req_type_phrase([Req, of | L], L, [req_type(Req) | C], C).
 req_type_phrase([Req, sell | L], L, [req_type(Req) | C], C).
+req_type_phrase([Req, price, for | L], L, [req_type(Req) | C], C).
 
 coin_name([Coin | L], L, [coin(Code) | C], C) :- 
     downcase_atom(Coin, CoinLowerCase),
@@ -44,10 +48,16 @@ coin_code('btc', btc).
 coin_code('ethereum', eth).
 coin_code('eth', eth).
 
+coin_code('litecoin', ltc).
+coin_code('ltc', ltc).
+
+coin_code('peercoin', ppc).
+coin_code('ppc', ppc).
+
 currency_code('usd', usd).
-
 currency_code('cad', cad).
-
 currency_code('eur', eur).
-
 currency_code('gbp', gbp).
+currency_code('jpy', jpy).
+currency_code('aud', aud).
+currency_code('rub', rub).
