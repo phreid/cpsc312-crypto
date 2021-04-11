@@ -1,7 +1,5 @@
 :- module(language, [question/4]).
 
-% Which market has the highest price for Bitcoin in USD?
-
 question(Q0, QEnd, C0, CEnd) :-
     starter_phrase(Q0, Q1),
     query_phrase(Q1, QEnd, C0, CEnd).
