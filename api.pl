@@ -54,6 +54,7 @@ get_answer_from_dict(Dict, Constraints, Result) :-
     \+ member(market(_), Constraints),
     \+ member(req_type(markets), Constraints),
     \+ member(req_type(highest), Constraints),
+    \+ member(req_type(lowest), Constraints),
     member(req_type(Type), Constraints),
     get_dict(Type, Dict, Result).
 
@@ -81,6 +82,13 @@ get_answer_from_dict(Dict, Constraints, Result) :-
     dicts_slice([market], Dicts, M),
     compare_price_highest(M, P, 0, _, Result).
 
+get_answer_from_dict(Dict, Constraints, Result) :-
+    member(req_type(lowest), Constraints),
+    get_dict(markets, Dict, Dicts),
+    dicts_slice([price], Dicts, P),
+    dicts_slice([market], Dicts, M),
+    compare_price_lowest(M, P, 1000000, _, Result).
+
 % filter_markets([Dicts], Market, Dict) is true if Dict is a dictionary
 % in [Dicts] where Dict[market] is equal to Market. Market has to be a string.
 filter_markets([], _, _{}).
@@ -107,3 +115,20 @@ compare_price_highest([_|M1], [P|P1], Price, M, Market) :-
     atom_number(P.get(price), Pr),
     Pr < Price,
     compare_price_highest(M1, P1, Price, M, Market).
+
+compare_price_lowest([M], [P], Price, _, Ma) :- 
+    atom_string(M.get(market), Ma),
+    atom_number(P.get(price), Pr),
+    Pr < Price.
+compare_price_lowest(_, [P], Price, Market, Market) :-
+    atom_number(P.get(price), Pr),
+    Pr > Price.
+compare_price_lowest([M|M1], [P|P1], Price, _, Market) :-
+    atom_string(M.get(market), Ma),
+    atom_number(P.get(price), Pr),
+    Pr < Price,
+    compare_price_lowest(M1, P1, Pr, Ma, Market).
+compare_price_lowest([_|M1], [P|P1], Price, M, Market) :-
+    atom_number(P.get(price), Pr),
+    Pr > Price,
+    compare_price_lowest(M1, P1, Price, M, Market).
