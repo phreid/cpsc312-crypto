@@ -42,15 +42,34 @@ currency_name([Currency | L], L, [currency(Code) | C], C) :-
 
 coin_code('bitcoin', btc).
 coin_code('btc', btc).
-
 coin_code('ethereum', eth).
 coin_code('eth', eth).
-
 coin_code('litecoin', ltc).
 coin_code('ltc', ltc).
-
 coin_code('peercoin', ppc).
 coin_code('ppc', ppc).
+coin_code('dogecoin', dode).
+coin_code('dode', dode).
+coin_code('ripple', xrp).
+coin_code('xrp', xrp).
+coin_code('nxt', nxt).
+coin_code('auroracoin', aur).
+coin_code('aur', aur).
+coin_code('dash', dash).
+coin_code('neo', neo).
+coin_code('monero', xmr).
+coin_code('xmr', xmr).
+coin_code('verge', xvg).
+coin_code('xvg', xvg).
+coin_code('stellar', xlm).
+coin_code('xlm', xlm).
+coin_code('nano', nano).
+coin_code('tether', usdt).
+coin_code('usdt', usdt).
+coin_code('zcash', zec).
+coin_code('zec', zec).
+coin_code('cardano', ada).
+coin_code('ada', ada).
 
 currency_code('usd', usd).
 currency_code('cad', cad).
@@ -59,3 +78,5 @@ currency_code('gbp', gbp).
 currency_code('jpy', jpy).
 currency_code('aud', aud).
 currency_code('rub', rub).
+currency_code('brl', brl).
+currency_code('idr', idr).
