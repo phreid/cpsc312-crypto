@@ -92,13 +92,6 @@ filter_markets([D|T], Market, D1) :-
     filter_markets(T, Market, D1).
 
 compare_price_highest([],[], _, Market, Market).
-compare_price_highest([M], [P], Price, _, Ma) :- 
-    atom_string(M.get(market), Ma),
-    atom_number(P.get(price), Pr),
-    Pr > Price.
-compare_price_highest(_, [P], Price, Market, Market) :-
-    atom_number(P.get(price), Pr),
-    Pr < Price.
 compare_price_highest([M|M1], [P|P1], Price, _, Market) :-
     atom_string(M.get(market), Ma),
     atom_number(P.get(price), Pr),
