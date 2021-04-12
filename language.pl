@@ -33,8 +33,8 @@ optional_phrase([in | L], LEnd, C0, CEnd) :-
     currency_name(L, R, C0, C1),
     optional_phrase(R, LEnd, C1, CEnd).
 
-optional_phrase([at, Market | L], LEnd, [market(Market) | C], C) :-
-    optional_phrase(L, LEnd, C, C).
+optional_phrase([at, Market | L], LEnd, [market(Market) | C0], CEnd) :-
+    optional_phrase(L, LEnd, C0, CEnd).
 
 currency_name([Currency | L], L, [currency(Code) | C], C) :-
     downcase_atom(Currency, CurrencyLowerCase),
