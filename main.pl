@@ -13,9 +13,12 @@ check_answer([quit]) :- writeln("Goodbye."), abort.
 
 check_answer(Ln) :-
     (
-        fetch_answer(Ln, Answer)
+        findall(A, fetch_answer(Ln, A), Answers),
+        length(Answers, L),
+        0 < L
     ->
-        write("The answer is: "), writeln(Answer)
+        atomic_list_concat(Answers, ', ', R),
+        write("The answer is: "), writeln(R)
     ;
         writeln("I'm sorry, I couldn't find an answer to that question.")
     ).
