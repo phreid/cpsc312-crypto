@@ -101,8 +101,10 @@ filter_markets([D|T], Market, D1) :-
     dif(Market, M1),
     filter_markets(T, Market, D1).
 
-compare_price_highest([M], [P], Price, _, Ma) :- 
-    atom_string(M.get(market), Ma),
+% compare_price_highest([M], [P], Price, _, Market) is true if Market is the market name
+% with the highest price.  
+compare_price_highest([M], [P], Price, _, Market) :- 
+    atom_string(M.get(market), Market),
     atom_number(P.get(price), Pr),
     Pr > Price.
 compare_price_highest(_, [P], Price, Market, Market) :-
@@ -118,8 +120,10 @@ compare_price_highest([_|M1], [P|P1], Price, M, Market) :-
     Pr < Price,
     compare_price_highest(M1, P1, Price, M, Market).
 
-compare_price_lowest([M], [P], Price, _, Ma) :- 
-    atom_string(M.get(market), Ma),
+% compare_price_lowest([M], [P], Price, _, Market) is true if Market is the market name
+% with the lowest price. 
+compare_price_lowest([M], [P], Price, _, Market) :- 
+    atom_string(M.get(market), Market),
     atom_number(P.get(price), Pr),
     Pr < Price.
 compare_price_lowest(_, [P], Price, Market, Market) :-
