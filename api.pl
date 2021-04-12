@@ -75,6 +75,8 @@ get_answer_from_dict(Dict, Constraints, Result) :-
     member(A, Values),
     atom_string(A.get(market), Result).
 
+% These two predicates match if there is a req_type constraint of 
+% highest or lowest
 get_answer_from_dict(Dict, Constraints, Result) :-
     member(req_type(highest), Constraints),
     get_dict(markets, Dict, Dicts),
