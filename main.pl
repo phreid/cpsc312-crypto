@@ -2,7 +2,7 @@
 
 main :-
     repeat,
-        write("Ask a question (or type 'quit' to exit): "),
+        writeln("Ask a question (or type 'quit' to exit): "),
         flush_output(current_output),
         readln(Ln),
         check_answer(Ln),
