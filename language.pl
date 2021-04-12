@@ -8,8 +8,11 @@ question(Q0, QEnd, C0, CEnd) :-
 % Different starter phrases for different types of questions, 
 % e.g. What is the price of Bitcoin? or Which markets sell Bitcoin?
 starter_phrase(['What', is | L], L).
+starter_phrase([what, is | L], L).
 starter_phrase(['Which' | L], L).
+starter_phrase([which | L], L).
 starter_phrase(['Which', market, has | L], L).
+starter_phrase([which, market, has | L], L).
 
 % Query phrase is a determinant followed by a request type, 
 % coin name, and optional phrases to specify currency and markets
@@ -50,6 +53,15 @@ currency_name([Currency | L], L, [currency(Code) | C], C) :-
     downcase_atom(Currency, CurrencyLowerCase),
     currency_code(CurrencyLowerCase, Code).
 
+currency_name([Country, 'Dollars' | L], L, [currency(Code) | C], C) :-
+    downcase_atom(Country, CountryLowerCase),
+    currency_code([CountryLowerCase, dollars], Code).
+
+currency_name([Country, 'dollars' | L], L, [currency(Code) | C], C) :-
+    downcase_atom(Country, CountryLowerCase),
+    currency_code([CountryLowerCase, dollars], Code).
+
+
 % Supported cryptocurrencies
 coin_code(bitcoin, btc).
 coin_code(btc, btc).
@@ -84,11 +96,20 @@ coin_code(ada, ada).
 
 % Supported currencies
 currency_code(usd, usd).
+currency_code([us, dollars], usd).
 currency_code(cad, cad).
+currency_code([canadian, dollars], cad).
 currency_code(eur, eur).
+currency_code(euro, eur).
 currency_code(gbp, gbp).
+currency_code(pounds, gbp).
 currency_code(jpy, jpy).
+currency_code(yen, jpy).
 currency_code(aud, aud).
+currency_code([australian, dollars], aud).
 currency_code(rub, rub).
+currency_code(rubles, rub).
 currency_code(brl, brl).
+currency_code(reals, brl).
 currency_code(idr, idr).
+currency_code(rupees, idr).
